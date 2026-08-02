@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.repository.EmployeeAccountRepository">
+
+    <select id="selectAll" resultType="com.example.demo.entity.EmployeeAccount">
+        SELECT id, employee_id AS employeeId, name, password
+        FROM employee_accounts;
+    </select>
+
+    <insert id="create" parameterType="com.example.demo.entity.EmployeeAccount">
+        INSERT INTO employee_account (employee_id, name, password)
+        VALUES (#{employeeId}, #{name}, #{password});
+    </insert>
+
+</mapper>

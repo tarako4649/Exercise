@@ -1,17 +1,13 @@
 // package com.example.demo.config;
 
-// import javax.sql.DataSource;
-
 // import org.springframework.context.annotation.Bean;
 // import org.springframework.context.annotation.Configuration;
 // import
 // org.springframework.security.config.annotation.web.builders.HttpSecurity;
 // import
 // org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-// import org.springframework.security.core.userdetails.UserDetailsService;
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 // import org.springframework.security.crypto.password.PasswordEncoder;
-// import org.springframework.security.provisioning.JdbcUserDetailsManager;
 // import org.springframework.security.web.SecurityFilterChain;
 
 // @Configuration
@@ -44,7 +40,73 @@
 // }
 
 // @Bean
+// public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+//     UserDetails user = User.withUsername("admin")
+//             .password(passwordEncoder.encode("password"))
+//             .roles("USER")
+//             .build();
+//     return new InMemoryUserDetailsManager(user);
+// }
+
+// @Bean
 // public PasswordEncoder passwordEncoder() {
 // return new BCryptPasswordEncoder();
 // }
 // }
+
+package com.example.demo.config;
+
+import javax.sql.DataSource;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/register", "/login", "/css/**", "/js/**").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/home", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll())
+                .csrf(csrf -> csrf.disable());
+
+        return http.build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(DataSource dataSource) {
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+
+        manager.setUsersByUsernameQuery(
+                "SELECT name, password, TRUE as enabled FROM employee_account WHERE name = ?");
+
+        manager.setAuthoritiesByUsernameQuery(
+                "SELECT name, 'ROLE_USER' as authority FROM employee_account WHERE name = ?");
+
+        return manager;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
