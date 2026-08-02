@@ -25,7 +25,6 @@ public class HomeController implements EmployeeAccountController {
 
     @GetMapping("/login")
     public String login() {
-        employeeAccountServiceImpl.checkEncode();
         return "login";
     }
 }
