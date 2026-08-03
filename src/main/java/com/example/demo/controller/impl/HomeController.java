@@ -1,30 +1,30 @@
-package com.example.demo.controller.impl;
+// package com.example.demo.controller.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.stereotype.Controller;
+// import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.demo.controller.EmployeeAccountController;
-import com.example.demo.service.EmployeeAccountServiceImpl;
+// import com.example.demo.controller.EmployeeAccountController;
+// import com.example.demo.service.EmployeeAccountServiceImpl;
 
-@Controller
-public class HomeController implements EmployeeAccountController {
-    @Autowired
-    EmployeeAccountServiceImpl employeeAccountServiceImpl;
+// @Controller
+// public class HomeController implements EmployeeAccountController {
+// @Autowired
+// EmployeeAccountServiceImpl employeeAccountServiceImpl;
 
-    @GetMapping("/")
-    public String root() {
-        return "home";
-    }
+// @GetMapping("/")
+// public String root() {
+// return "home";
+// }
 
-    @GetMapping("/home")
-    public String home() {
+// @GetMapping("/home")
+// public String home() {
 
-        return "home";
-    }
+// return "home";
+// }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-}
+// @GetMapping("/login")
+// public String login() {
+// return "login";
+// }
+// }

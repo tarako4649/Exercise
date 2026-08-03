@@ -1,0 +1,13 @@
+package com.example.demo.controller.impl;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class AdminController {
+
+    @GetMapping("/admin")
+    public String adminMenu() {
+        return "admin/menu";
+    }
+}

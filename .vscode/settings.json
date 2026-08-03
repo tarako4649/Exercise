@@ -4,6 +4,12 @@
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "chat.tools.terminal.autoApprove": {
+    "/^\\.\\\\gradlew\\.bat dependencies --configuration testRuntimeClasspath \\| findstr /i /c:\"4\\.1\\.0\" /c:\"3\\.5\\.5\" /c:\"3\\.4\\.3\" /c:\"3\\.3\\.4\"$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
 
 }

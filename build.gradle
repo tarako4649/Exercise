@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-    id 'org.springframework.boot' version '3.5.5'
-    id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.springframework.boot' version '3.5.15'
+	id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'com.example'
@@ -17,37 +17,30 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
-
-    // --- Spring Boot 基本 ---
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
+    implementation 'org.postgresql:postgresql'
+
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    // --- MyBatis ---
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:4.1.0'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
-    // --- PostgreSQL ---
-    runtimeOnly 'org.postgresql:postgresql'
 
-    // --- Lombok ---
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    // --- DevTools ---
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-    // --- Configuration Processor（便利なので残す） ---
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-    // --- Test ---
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
 }
+
+
 
 tasks.named('test') {
 	useJUnitPlatform()

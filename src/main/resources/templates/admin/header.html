@@ -1,0 +1,26 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <div th:fragment="header">
+    <!-- 未ログイン -->
+    <div sec:authorize="isAnonymous()">
+      <a href="/admin/login">ログイン</a>
+    </div>
+
+    <!-- USER ロールのユーザー -->
+    <div sec:authorize="hasRole('USER')">
+      <span th:text="${#authentication.name}">ユーザー名</span>
+      <span>（USER 権限）</span>
+      <a href="/admin/logout">ログアウト</a>
+    </div>
+
+    <!-- USER 以外のロール -->
+    <div sec:authorize="isAuthenticated() and !hasRole('USER')">
+      <span th:text="${#authentication.name}">ユーザー名</span>
+      <span>（別ロール）</span>
+      <a href="/admin/logout">ログアウト</a>
+    </div>
+  </div>
+</html>
